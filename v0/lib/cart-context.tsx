@@ -24,6 +24,7 @@ interface CartContextType {
   isDrawerOpen: boolean
   openDrawer: () => void
   closeDrawer: () => void
+  isItemInCart: (id: number) => boolean
 }
 
 const STORAGE_KEY = "grandmax-cart"
@@ -98,6 +99,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const openDrawer = useCallback(() => setIsDrawerOpen(true), [])
   const closeDrawer = useCallback(() => setIsDrawerOpen(false), [])
+  const isItemInCart = useCallback((id: number) => {
+    return items.some((item) => item.id === id)
+  }, [items])
 
   return (
     <CartContext.Provider
@@ -112,6 +116,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         isDrawerOpen,
         openDrawer,
         closeDrawer,
+        isItemInCart,
       }}
     >
       {children}

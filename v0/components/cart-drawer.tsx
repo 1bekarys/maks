@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { X } from "lucide-react"
+import { X, Minus, Plus } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { useEffect } from "react"
 
@@ -11,7 +11,7 @@ function formatPrice(price: number) {
 }
 
 export function CartDrawer() {
-  const { items, removeItem, totalPrice, totalItems, isDrawerOpen, closeDrawer } = useCart()
+  const { items, removeItem, updateQuantity, totalPrice, totalItems, isDrawerOpen, closeDrawer } = useCart()
 
   useEffect(() => {
     if (isDrawerOpen) {
@@ -90,9 +90,25 @@ export function CartDrawer() {
                     <h3 className="text-sm font-medium text-foreground leading-snug line-clamp-2">
                       {item.name}
                     </h3>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {item.quantity} {"шт."}
-                    </p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <button
+                        onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                        className="p-1 hover:bg-secondary transition-colors cursor-pointer rounded"
+                        aria-label="Уменьшить"
+                      >
+                        <Minus className="h-3 w-3 text-muted-foreground" />
+                      </button>
+                      <span className="text-xs font-medium text-foreground min-w-[20px] text-center">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="p-1 hover:bg-secondary transition-colors cursor-pointer rounded"
+                        aria-label="Увеличить"
+                      >
+                        <Plus className="h-3 w-3 text-muted-foreground" />
+                      </button>
+                    </div>
                   </div>
                   <div className="flex flex-col items-end justify-between flex-shrink-0">
                     <span className="text-sm font-bold text-foreground whitespace-nowrap">

@@ -4,13 +4,14 @@ import { useState } from "react"
 import Link from "next/link"
 import { Search, ShoppingCart, Menu, X } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
+import { categories } from "@/lib/categories"
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [catalogOpen, setCatalogOpen] = useState(false)
   const { totalItems, openDrawer } = useCart()
 
   const links = [
-    { label: "Каталог", href: "/product" },
     { label: "Компания", href: "#about" },
     { label: "Информация", href: "#info" },
     { label: "Оплата и доставка", href: "#delivery" },
@@ -33,6 +34,28 @@ export function Navbar() {
         </button>
 
         <div className="hidden md:flex items-center gap-8">
+          <div
+            className="relative"
+            onMouseEnter={() => setCatalogOpen(true)}
+            onMouseLeave={() => setCatalogOpen(false)}
+          >
+            <button className="text-foreground font-medium hover:text-primary transition-colors text-[15px] cursor-pointer">
+              Каталог
+            </button>
+            {catalogOpen && (
+              <div className="absolute left-0 mt-0 w-48 bg-popover text-popover-foreground rounded-md border shadow-md z-50 py-1">
+                {categories.map((category) => (
+                  <Link
+                    key={category.slug}
+                    href={`/product/${category.slug}`}
+                    className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
           {links.map((link) => (
             <Link
               key={link.href}
@@ -67,6 +90,19 @@ export function Navbar() {
       {menuOpen && (
         <div className="md:hidden border-t border-border bg-card">
           <div className="mx-auto w-[90%] max-w-[1200px] py-4 flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <div className="text-foreground font-medium text-[15px] px-2">Каталог</div>
+              {categories.map((category) => (
+                <Link
+                  key={category.slug}
+                  href={`/product/${category.slug}`}
+                  className="text-foreground text-sm hover:text-primary transition-colors pl-4"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {category.name}
+                </Link>
+              ))}
+            </div>
             {links.map((link) => (
               <Link
                 key={link.href}

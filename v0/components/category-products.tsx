@@ -8,7 +8,8 @@ import { useCart } from "@/lib/cart-context"
 
 function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid" | "list" }) {
   const [quantity, setQuantity] = useState(1)
-  const { addItem } = useCart()
+  const { addItem, isItemInCart } = useCart()
+  const itemInCart = isItemInCart(product.id)
 
   const handleAddToCart = () => {
     if (product.price) {
@@ -62,30 +63,37 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
         </div>
         {product.inStock && product.price && (
           <div className="flex items-center gap-2 flex-shrink-0">
-            <div className="flex items-center border border-border rounded">
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-1.5 hover:bg-secondary transition-colors cursor-pointer"
-                aria-label="Уменьшить"
-              >
-                <Minus className="h-3 w-3 text-muted-foreground" />
-              </button>
-              <span className="px-2 text-sm font-medium text-foreground min-w-[28px] text-center">
-                {quantity}
-              </span>
-              <button
-                onClick={() => setQuantity(quantity + 1)}
-                className="p-1.5 hover:bg-secondary transition-colors cursor-pointer"
-                aria-label="Увеличить"
-              >
-                <Plus className="h-3 w-3 text-muted-foreground" />
-              </button>
-            </div>
+            {!itemInCart && (
+              <div className="flex items-center border border-border rounded">
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="p-1.5 hover:bg-secondary transition-colors cursor-pointer"
+                  aria-label="Уменьшить"
+                >
+                  <Minus className="h-3 w-3 text-muted-foreground" />
+                </button>
+                <span className="px-2 text-sm font-medium text-foreground min-w-[28px] text-center">
+                  {quantity}
+                </span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="p-1.5 hover:bg-secondary transition-colors cursor-pointer"
+                  aria-label="Увеличить"
+                >
+                  <Plus className="h-3 w-3 text-muted-foreground" />
+                </button>
+              </div>
+            )}
             <button
               onClick={handleAddToCart}
-              className="bg-primary text-primary-foreground text-sm font-semibold py-2 px-4 rounded hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer">
+              disabled={itemInCart}
+              className={`text-sm font-semibold py-2 px-4 rounded flex items-center gap-2 transition-all ${
+                itemInCart
+                  ? "bg-green-600 text-white cursor-not-allowed opacity-75"
+                  : "bg-primary text-primary-foreground hover:opacity-90 cursor-pointer"
+              }`}>
               <ShoppingCart className="h-4 w-4" />
-              В корзину
+              {itemInCart ? "В корзине" : "В корзину"}
             </button>
           </div>
         )}
@@ -132,30 +140,37 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
 
         {product.inStock && product.price ? (
           <div className="flex items-center gap-2">
-            <div className="flex items-center border border-border rounded">
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-1.5 hover:bg-secondary transition-colors cursor-pointer"
-                aria-label="Уменьшить"
-              >
-                <Minus className="h-3 w-3 text-muted-foreground" />
-              </button>
-              <span className="px-2 text-sm font-medium text-foreground min-w-[28px] text-center">
-                {quantity}
-              </span>
-              <button
-                onClick={() => setQuantity(quantity + 1)}
-                className="p-1.5 hover:bg-secondary transition-colors cursor-pointer"
-                aria-label="Увеличить"
-              >
-                <Plus className="h-3 w-3 text-muted-foreground" />
-              </button>
-            </div>
+            {!itemInCart && (
+              <div className="flex items-center border border-border rounded">
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="p-1.5 hover:bg-secondary transition-colors cursor-pointer"
+                  aria-label="Уменьшить"
+                >
+                  <Minus className="h-3 w-3 text-muted-foreground" />
+                </button>
+                <span className="px-2 text-sm font-medium text-foreground min-w-[28px] text-center">
+                  {quantity}
+                </span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="p-1.5 hover:bg-secondary transition-colors cursor-pointer"
+                  aria-label="Увеличить"
+                >
+                  <Plus className="h-3 w-3 text-muted-foreground" />
+                </button>
+              </div>
+            )}
             <button
               onClick={handleAddToCart}
-              className="flex-1 bg-primary text-primary-foreground text-sm font-semibold py-2 px-3 rounded hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer">
+              disabled={itemInCart}
+              className={`flex-1 text-sm font-semibold py-2 px-3 rounded flex items-center justify-center gap-2 transition-all ${
+                itemInCart
+                  ? "bg-green-600 text-white cursor-not-allowed opacity-75"
+                  : "bg-primary text-primary-foreground hover:opacity-90 cursor-pointer"
+              }`}>
               <ShoppingCart className="h-4 w-4" />
-              <span className="hidden sm:inline">В корзину</span>
+              <span className="hidden sm:inline">{itemInCart ? "В корзине" : "В корзину"}</span>
             </button>
           </div>
         ) : (

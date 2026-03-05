@@ -53,7 +53,8 @@ function formatPrice(price: number) {
 
 function ProductCard({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1)
-  const { addItem } = useCart()
+  const { addItem, isItemInCart } = useCart()
+  const itemInCart = isItemInCart(product.id)
 
   const handleAddToCart = () => {
     if (product.price) {
@@ -108,31 +109,38 @@ function ProductCard({ product }: { product: Product }) {
             </p>
 
             <div className="flex items-center gap-3">
-              <div className="flex items-center border border-border rounded">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="p-2 hover:bg-[#f1f3f6] transition-colors cursor-pointer"
-                  aria-label="Уменьшить количество"
-                >
-                  <Minus className="h-3 w-3 text-[#6b7b8d]" />
-                </button>
-                <span className="px-3 text-sm font-medium text-[#1f2d3d] min-w-[32px] text-center">
-                  {quantity}
-                </span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="p-2 hover:bg-[#f1f3f6] transition-colors cursor-pointer"
-                  aria-label="Увеличить количество"
-                >
-                  <Plus className="h-3 w-3 text-[#6b7b8d]" />
-                </button>
-              </div>
+              {!itemInCart && (
+                <div className="flex items-center border border-border rounded">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="p-2 hover:bg-[#f1f3f6] transition-colors cursor-pointer"
+                    aria-label="Уменьшить количество"
+                  >
+                    <Minus className="h-3 w-3 text-[#6b7b8d]" />
+                  </button>
+                  <span className="px-3 text-sm font-medium text-[#1f2d3d] min-w-[32px] text-center">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="p-2 hover:bg-[#f1f3f6] transition-colors cursor-pointer"
+                    aria-label="Увеличить количество"
+                  >
+                    <Plus className="h-3 w-3 text-[#6b7b8d]" />
+                  </button>
+                </div>
+              )}
 
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-[#1e4f8a] text-[#ffffff] text-sm font-semibold py-2.5 px-4 rounded hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer">
+                disabled={itemInCart}
+                className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded flex items-center justify-center gap-2 transition-all ${
+                  itemInCart
+                    ? "bg-green-600 text-[#ffffff] cursor-not-allowed opacity-75"
+                    : "bg-[#1e4f8a] text-[#ffffff] hover:opacity-90 cursor-pointer"
+                }`}>
                 <ShoppingCart className="h-4 w-4" />
-                В корзину
+                {itemInCart ? "В корзине" : "В корзину"}
               </button>
             </div>
           </>
