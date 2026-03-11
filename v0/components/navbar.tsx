@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Search, ShoppingCart, Menu, X } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { categories } from "@/lib/categories"
@@ -9,6 +10,7 @@ import { categories } from "@/lib/categories"
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [catalogOpen, setCatalogOpen] = useState(false)
+  const router = useRouter()
   const { totalItems, openDrawer } = useCart()
 
   const links = [
@@ -39,7 +41,9 @@ export function Navbar() {
             onMouseEnter={() => setCatalogOpen(true)}
             onMouseLeave={() => setCatalogOpen(false)}
           >
-            <button className="text-foreground font-medium hover:text-primary transition-colors text-[15px] cursor-pointer">
+            <button 
+              onClick={() => router.push("/product")}
+              className="text-foreground font-medium hover:text-primary transition-colors text-[15px] cursor-pointer">
               Каталог
             </button>
             {catalogOpen && (
