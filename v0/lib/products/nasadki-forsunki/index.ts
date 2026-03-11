@@ -8,6 +8,9 @@ export const nasadki_forsunki: Product[] = [
     image: "/images/product-nozzle.jpg",
     inStock: true,
     category: "nasadki-forsunki",
+    country: "Китай",
+    maxPressure: 20000,
+    material: "Сталь",
   },
   {
     id: 19,
@@ -16,6 +19,9 @@ export const nasadki_forsunki: Product[] = [
     image: "/images/cat-nozzles.jpg",
     inStock: true,
     category: "nasadki-forsunki",
+    country: "Китай",
+    maxPressure: 15000,
+    material: "Металл",
   },
   {
     id: 20,
@@ -25,5 +31,8 @@ export const nasadki_forsunki: Product[] = [
     inStock: true,
     badge: "hit",
     category: "nasadki-forsunki",
+    country: "Китай",
+    maxPressure: 35000,
+    material: "Сталь",
   },
 ]

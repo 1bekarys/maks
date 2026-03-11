@@ -9,6 +9,10 @@ export const shlangi_vysokogo_davleniya: Product[] = [
     inStock: true,
     badge: "new",
     category: "shlangi-vysokogo-davleniya",
+    country: "Китай",
+    maxPressure: 35000,
+    material: "Полимер",
+    length: 20,
   },
   {
     id: 27,
@@ -17,5 +21,9 @@ export const shlangi_vysokogo_davleniya: Product[] = [
     image: "/images/cat-hoses.jpg",
     inStock: true,
     category: "shlangi-vysokogo-davleniya",
+    country: "Китай",
+    maxPressure: 25000,
+    material: "Полимер",
+    length: 10,
   },
 ]

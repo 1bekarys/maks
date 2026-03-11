@@ -12,6 +12,7 @@ export const plunzhernye_nasosy: Product[] = [
     power: 5500,
     maxPressure: 20000,
     performance: 20,
+    material: "Чугун",
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ export const plunzhernye_nasosy: Product[] = [
     power: 7500,
     maxPressure: 20000,
     performance: 21,
+    material: "Чугун",
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ export const plunzhernye_nasosy: Product[] = [
     power: 11000,
     maxPressure: 25000,
     performance: 25,
+    material: "Чугун",
   },
   {
     id: 4,
@@ -48,6 +51,7 @@ export const plunzhernye_nasosy: Product[] = [
     power: 15000,
     maxPressure: 25000,
     performance: 30,
+    material: "Чугун",
   },
   {
     id: 5,

@@ -9,6 +9,9 @@ export const pistolety_dlya_moyki: Product[] = [
     inStock: true,
     badge: "hit",
     category: "pistolety-dlya-moyki",
+    country: "Китай",
+    maxPressure: 20000,
+    material: "Пластик",
   },
   {
     id: 22,
@@ -17,5 +20,8 @@ export const pistolety_dlya_moyki: Product[] = [
     image: "/images/cat-wash-guns.jpg",
     inStock: true,
     category: "pistolety-dlya-moyki",
+    country: "Китай",
+    maxPressure: 25000,
+    material: "Пластик",
   },
 ]

@@ -8,5 +8,7 @@ export const prochie_aksessuary: Product[] = [
     image: "/images/cat-nozzles.jpg",
     inStock: true,
     category: "prochie-aksessuary",
+    country: "Китай",
+    maxPressure: 20000,
   },
 ]

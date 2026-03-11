@@ -11,6 +11,7 @@ export const moyki_vysokogo_davleniya: Product[] = [
     country: "Китай",
     power: 5500,
     maxPressure: 20000,
+    performance: 15,
   },
   {
     id: 11,
@@ -23,6 +24,7 @@ export const moyki_vysokogo_davleniya: Product[] = [
     country: "Китай",
     power: 7500,
     maxPressure: 25000,
+    performance: 15,
   },
   {
     id: 12,
@@ -34,5 +36,6 @@ export const moyki_vysokogo_davleniya: Product[] = [
     country: "Китай",
     power: 5500,
     maxPressure: 15000,
+    performance: 12,
   },
 ]

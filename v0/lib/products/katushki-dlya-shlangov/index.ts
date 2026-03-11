@@ -8,6 +8,10 @@ export const katushki_dlya_shlangov: Product[] = [
     image: "/images/cat-hose-reels.jpg",
     inStock: true,
     category: "katushki-dlya-shlangov",
+    country: "Китай",
+    maxPressure: 20000,
+    material: "Пластик",
+    length: 20,
   },
   {
     id: 17,
@@ -17,5 +21,9 @@ export const katushki_dlya_shlangov: Product[] = [
     inStock: true,
     badge: "new",
     category: "katushki-dlya-shlangov",
+    country: "Китай",
+    maxPressure: 20000,
+    material: "Пластик",
+    length: 40,
   },
 ]

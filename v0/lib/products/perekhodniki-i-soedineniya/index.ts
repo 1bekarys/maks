@@ -8,6 +8,9 @@ export const perekhodniki_i_soedineniya: Product[] = [
     image: "/images/cat-adapters.jpg",
     inStock: true,
     category: "perekhodniki-i-soedineniya",
+    country: "Китай",
+    maxPressure: 25000,
+    material: "Латунь",
   },
   {
     id: 14,
@@ -16,6 +19,9 @@ export const perekhodniki_i_soedineniya: Product[] = [
     image: "/images/cat-adapters.jpg",
     inStock: true,
     category: "perekhodniki-i-soedineniya",
+    country: "Китай",
+    maxPressure: 25000,
+    material: "Латунь",
   },
   {
     id: 15,
@@ -24,5 +30,8 @@ export const perekhodniki_i_soedineniya: Product[] = [
     image: "/images/cat-adapters.jpg",
     inStock: true,
     category: "perekhodniki-i-soedineniya",
+    country: "Китай",
+    maxPressure: 25000,
+    material: "Латунь",
   },
 ]

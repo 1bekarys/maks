@@ -17,4 +17,6 @@ export interface Product {
   power?: number
   maxPressure?: number
   performance?: number
+  material?: string
+  length?: number
 }

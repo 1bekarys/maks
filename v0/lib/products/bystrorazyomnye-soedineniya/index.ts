@@ -8,6 +8,8 @@ export const bystrorazyomnye_soedineniya: Product[] = [
     image: "/images/cat-quick-connect.jpg",
     inStock: true,
     category: "bystrorazyomnye-soedineniya",
+    country: "Китай",
+    maxPressure: 25000,
   },
   {
     id: 24,
@@ -16,6 +18,8 @@ export const bystrorazyomnye_soedineniya: Product[] = [
     image: "/images/cat-quick-connect.jpg",
     inStock: true,
     category: "bystrorazyomnye-soedineniya",
+    country: "Китай",
+    maxPressure: 25000,
   },
   {
     id: 25,
@@ -25,5 +29,7 @@ export const bystrorazyomnye_soedineniya: Product[] = [
     inStock: true,
     badge: "new",
     category: "bystrorazyomnye-soedineniya",
+    country: "Китай",
+    maxPressure: 25000,
   },
 ]

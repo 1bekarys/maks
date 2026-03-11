@@ -3,8 +3,7 @@ import { TopBar } from "@/components/top-bar"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Breadcrumbs } from "@/components/breadcrumbs"
-import { CategorySidebar } from "@/components/category-sidebar"
-import { CategoryProducts } from "@/components/category-products"
+import { CategoryView } from "@/components/category-view"
 import { categories, getCategoryBySlug, getProductsByCategory } from "@/lib/catalog-data"
 
 export async function generateStaticParams() {
@@ -40,9 +39,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               { label: category.name },
             ]}
           />
-          <div className="mt-6 flex flex-col lg:flex-row gap-8">
-            <CategorySidebar currentSlug={slug} />
-            <CategoryProducts products={products} categoryName={category.name} />
+          <div className="mt-6">
+            <CategoryView products={products} categoryName={category.name} currentSlug={slug} />
           </div>
         </div>
       </div>

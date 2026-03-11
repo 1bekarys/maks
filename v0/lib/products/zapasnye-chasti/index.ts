@@ -8,6 +8,10 @@ export const zapasnye_chasti: Product[] = [
     image: "/images/cat-spare-parts.jpg",
     inStock: true,
     category: "zapasnye-chasti",
+    country: "Китай",
+    material: "Металл",
+    performance: 25,
+    power: 5500,
   },
   {
     id: 30,
@@ -16,6 +20,8 @@ export const zapasnye_chasti: Product[] = [
     image: "/images/cat-spare-parts.jpg",
     inStock: true,
     category: "zapasnye-chasti",
+    country: "Китай",
+    material: "Полимер",
   },
   {
     id: 31,
@@ -25,5 +31,8 @@ export const zapasnye_chasti: Product[] = [
     inStock: true,
     badge: "hit",
     category: "zapasnye-chasti",
+    country: "Китай",
+    material: "Керамика",
+    power: 15000,
   },
 ]
