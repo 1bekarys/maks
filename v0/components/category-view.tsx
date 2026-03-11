@@ -37,34 +37,46 @@ export function CategoryView({
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       // Price filter
-      if (filters.priceMin && product.price && product.price < Number(filters.priceMin)) {
-        return false
+      if (filters.priceMin) {
+        if (!product.price || product.price < Number(filters.priceMin)) {
+          return false
+        }
       }
-      if (filters.priceMax && product.price && product.price > Number(filters.priceMax)) {
-        return false
+      if (filters.priceMax) {
+        if (!product.price || product.price > Number(filters.priceMax)) {
+          return false
+        }
       }
 
       // Country filter
-      if (filters.countries.length > 0 && product.country) {
-        if (!filters.countries.includes(product.country)) {
+      if (filters.countries.length > 0) {
+        if (!product.country || !filters.countries.includes(product.country)) {
           return false
         }
       }
 
       // Power filter
-      if (filters.powerMin && product.power && product.power < Number(filters.powerMin)) {
-        return false
+      if (filters.powerMin) {
+        if (!product.power || product.power < Number(filters.powerMin)) {
+          return false
+        }
       }
-      if (filters.powerMax && product.power && product.power > Number(filters.powerMax)) {
-        return false
+      if (filters.powerMax) {
+        if (!product.power || product.power > Number(filters.powerMax)) {
+          return false
+        }
       }
 
       // Pressure filter
-      if (filters.pressureMin && product.maxPressure && product.maxPressure < Number(filters.pressureMin)) {
-        return false
+      if (filters.pressureMin) {
+        if (!product.maxPressure || product.maxPressure < Number(filters.pressureMin)) {
+          return false
+        }
       }
-      if (filters.pressureMax && product.maxPressure && product.maxPressure > Number(filters.pressureMax)) {
-        return false
+      if (filters.pressureMax) {
+        if (!product.maxPressure || product.maxPressure > Number(filters.pressureMax)) {
+          return false
+        }
       }
 
       return true

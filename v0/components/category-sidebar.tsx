@@ -31,20 +31,32 @@ export function CategorySidebar({
     return products.filter((p) => p.country && filters.countries.includes(p.country)).length
   }, [products, filters.countries])
 
-  const minPrice = useMemo(() => Math.min(...products.filter((p) => p.price).map((p) => p.price!)), [products])
-  const maxPrice = useMemo(() => Math.max(...products.filter((p) => p.price).map((p) => p.price!)), [products])
+  const minPrice = useMemo(() => {
+    const prices = products.filter((p) => p.price).map((p) => p.price!)
+    return prices.length > 0 ? Math.min(...prices) : 0
+  }, [products])
+  const maxPrice = useMemo(() => {
+    const prices = products.filter((p) => p.price).map((p) => p.price!)
+    return prices.length > 0 ? Math.max(...prices) : 0
+  }, [products])
 
-  const minPower = useMemo(() => Math.min(...products.filter((p) => p.power).map((p) => p.power!)), [products])
-  const maxPower = useMemo(() => Math.max(...products.filter((p) => p.power).map((p) => p.power!)), [products])
+  const minPower = useMemo(() => {
+    const powers = products.filter((p) => p.power).map((p) => p.power!)
+    return powers.length > 0 ? Math.min(...powers) : 0
+  }, [products])
+  const maxPower = useMemo(() => {
+    const powers = products.filter((p) => p.power).map((p) => p.power!)
+    return powers.length > 0 ? Math.max(...powers) : 0
+  }, [products])
 
-  const minPressure = useMemo(
-    () => Math.min(...products.filter((p) => p.maxPressure).map((p) => p.maxPressure!)),
-    [products]
-  )
-  const maxPressure = useMemo(
-    () => Math.max(...products.filter((p) => p.maxPressure).map((p) => p.maxPressure!)),
-    [products]
-  )
+  const minPressure = useMemo(() => {
+    const pressures = products.filter((p) => p.maxPressure).map((p) => p.maxPressure!)
+    return pressures.length > 0 ? Math.min(...pressures) : 0
+  }, [products])
+  const maxPressure = useMemo(() => {
+    const pressures = products.filter((p) => p.maxPressure).map((p) => p.maxPressure!)
+    return pressures.length > 0 ? Math.max(...pressures) : 0
+  }, [products])
 
   const handleCountryToggle = (country: string) => {
     const newCountries = filters.countries.includes(country)
