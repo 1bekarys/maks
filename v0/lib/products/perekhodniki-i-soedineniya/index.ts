@@ -1,37 +1,10 @@
 import { Product } from "../../types"
+import { perekhodnikM22NaruzhnayaProduct } from "./perekhodnik-m22-3-8-naruzhnaya/product"
+import { perekhodnikM22VnutrennyayaProduct } from "./perekhodnik-m22-3-8-vnutrennyaya/product"
+import { shtucer38NaruzhnayaProduct } from "./shtucer-3-8-naruzhnaya/product"
 
 export const perekhodniki_i_soedineniya: Product[] = [
-  {
-    id: 13,
-    name: "Переходник М22х1.5 наружная - 3/8 наружная",
-    price: 350,
-    image: "/images/cat-adapters.jpg",
-    inStock: true,
-    category: "perekhodniki-i-soedineniya",
-    country: "Китай",
-    maxPressure: 25000,
-    material: "Латунь",
-  },
-  {
-    id: 14,
-    name: "Переходник М22х1.5 внутренняя - 3/8 внутренняя",
-    price: 380,
-    image: "/images/cat-adapters.jpg",
-    inStock: true,
-    category: "perekhodniki-i-soedineniya",
-    country: "Китай",
-    maxPressure: 25000,
-    material: "Латунь",
-  },
-  {
-    id: 15,
-    name: "Штуцер 3/8 наружная - 3/8 наружная",
-    price: 250,
-    image: "/images/cat-adapters.jpg",
-    inStock: true,
-    category: "perekhodniki-i-soedineniya",
-    country: "Китай",
-    maxPressure: 25000,
-    material: "Латунь",
-  },
+  perekhodnikM22NaruzhnayaProduct,
+  perekhodnikM22VnutrennyayaProduct,
+  shtucer38NaruzhnayaProduct,
 ]

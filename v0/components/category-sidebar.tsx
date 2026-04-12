@@ -20,6 +20,22 @@ export function CategorySidebar({
   onReset: () => void
 }) {
   const [filtersOpen, setFiltersOpen] = useState(true)
+  const [filterSectionsOpen, setFilterSectionsOpen] = useState({
+    price: true,
+    country: true,
+    power: true,
+    pressure: true,
+    performance: true,
+    material: true,
+    length: true,
+  })
+
+  const toggleFilterSection = (section: keyof typeof filterSectionsOpen) => {
+    setFilterSectionsOpen((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }))
+  }
 
   // Dynamically extract unique values from products
   const countries = useMemo(() => {
@@ -58,11 +74,47 @@ export function CategorySidebar({
     return pressures.length > 0 ? Math.max(...pressures) : 0
   }, [products])
 
+  const materials = useMemo(() => {
+    const uniqueMaterials = [...new Set(products.filter((p) => p.material).map((p) => p.material!))]
+    return uniqueMaterials.sort()
+  }, [products])
+
+  const performances = useMemo(() => {
+    const uniquePerformances = [...new Set(products.filter((p) => p.performance).map((p) => p.performance!))]
+    return uniquePerformances.sort((a, b) => a - b)
+  }, [products])
+
+  const lengths = useMemo(() => {
+    const uniqueLengths = [...new Set(products.filter((p) => p.length).map((p) => p.length!.toString()))]
+    return uniqueLengths.sort((a, b) => parseFloat(a) - parseFloat(b))
+  }, [products])
+
   const handleCountryToggle = (country: string) => {
     const newCountries = filters.countries.includes(country)
       ? filters.countries.filter((c) => c !== country)
       : [...filters.countries, country]
     onFiltersChange({ ...filters, countries: newCountries })
+  }
+
+  const handleMaterialToggle = (material: string) => {
+    const newMaterials = filters.materials.includes(material)
+      ? filters.materials.filter((m) => m !== material)
+      : [...filters.materials, material]
+    onFiltersChange({ ...filters, materials: newMaterials })
+  }
+
+  const handlePerformanceToggle = (performance: string) => {
+    const newPerformances = filters.performance.includes(performance)
+      ? filters.performance.filter((p) => p !== performance)
+      : [...filters.performance, performance]
+    onFiltersChange({ ...filters, performance: newPerformances })
+  }
+
+  const handleLengthToggle = (length: string) => {
+    const newLengths = filters.lengths.includes(length)
+      ? filters.lengths.filter((l) => l !== length)
+      : [...filters.lengths, length]
+    onFiltersChange({ ...filters, lengths: newLengths })
   }
 
   return (
@@ -111,96 +163,269 @@ export function CategorySidebar({
           <div className="p-4 flex flex-col gap-5">
             {/* Price filter */}
             <div>
-              <h4 className="text-sm font-semibold text-foreground mb-2">Цена</h4>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  placeholder={minPrice.toString()}
-                  value={filters.priceMin}
-                  onChange={(e) => onFiltersChange({ ...filters, priceMin: e.target.value })}
-                  className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-                <span className="text-muted-foreground text-xs">{"—"}</span>
-                <input
-                  type="number"
-                  placeholder={maxPrice.toString()}
-                  value={filters.priceMax}
-                  onChange={(e) => onFiltersChange({ ...filters, priceMax: e.target.value })}
-                  className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                />
-              </div>
+              <button
+                onClick={() => toggleFilterSection("price")}
+                className="w-full flex items-center justify-between cursor-pointer mb-2"
+              >
+                <h4 className="text-sm font-semibold text-foreground">Цена</h4>
+                {filterSectionsOpen.price ? (
+                  <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                )}
+              </button>
+              {filterSectionsOpen.price && (
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    placeholder={minPrice.toString()}
+                    value={filters.priceMin}
+                    onChange={(e) => onFiltersChange({ ...filters, priceMin: e.target.value })}
+                    className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                  <span className="text-muted-foreground text-xs">{"—"}</span>
+                  <input
+                    type="number"
+                    placeholder={maxPrice.toString()}
+                    value={filters.priceMax}
+                    onChange={(e) => onFiltersChange({ ...filters, priceMax: e.target.value })}
+                    className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              )}
             </div>
 
             {/* Country filter */}
             {countries.length > 0 && (
               <div>
-                <h4 className="text-sm font-semibold text-foreground mb-2">
-                  {"Страна-производитель"}
-                </h4>
-                {countries.map((country) => (
-                  <label key={country} className="flex items-center gap-2 text-sm text-foreground cursor-pointer mb-2">
-                    <input
-                      type="checkbox"
-                      checked={filters.countries.includes(country)}
-                      onChange={() => handleCountryToggle(country)}
-                      className="rounded border-border accent-primary"
-                    />
-                    <span>{country}</span>
-                    <span className="text-muted-foreground text-xs ml-auto">
-                      {`(${products.filter((p) => p.country === country).length})`}
-                    </span>
-                  </label>
-                ))}
+                <button
+                  onClick={() => toggleFilterSection("country")}
+                  className="w-full flex items-center justify-between cursor-pointer mb-2"
+                >
+                  <h4 className="text-sm font-semibold text-foreground">
+                    {"Страна-производитель"}
+                  </h4>
+                  {filterSectionsOpen.country ? (
+                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {filterSectionsOpen.country && (
+                  <div>
+                    {countries.map((country) => (
+                      <label
+                        key={country}
+                        className="flex items-center gap-2 text-sm text-foreground cursor-pointer mb-2"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filters.countries.includes(country)}
+                          onChange={() => handleCountryToggle(country)}
+                          className="rounded border-border accent-primary"
+                        />
+                        <span>{country}</span>
+                        <span className="text-muted-foreground text-xs ml-auto">
+                          {`(${products.filter((p) => p.country === country).length})`}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
             {/* Power filter */}
             {products.some((p) => p.power) && (
               <div>
-                <h4 className="text-sm font-semibold text-foreground mb-2">{"Мощность, Вт"}</h4>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    placeholder={minPower.toString()}
-                    value={filters.powerMin}
-                    onChange={(e) => onFiltersChange({ ...filters, powerMin: e.target.value })}
-                    className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                  />
-                  <span className="text-muted-foreground text-xs">{"—"}</span>
-                  <input
-                    type="number"
-                    placeholder={maxPower.toString()}
-                    value={filters.powerMax}
-                    onChange={(e) => onFiltersChange({ ...filters, powerMax: e.target.value })}
-                    className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                  />
-                </div>
+                <button
+                  onClick={() => toggleFilterSection("power")}
+                  className="w-full flex items-center justify-between cursor-pointer mb-2"
+                >
+                  <h4 className="text-sm font-semibold text-foreground">{"Мощность, Вт"}</h4>
+                  {filterSectionsOpen.power ? (
+                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {filterSectionsOpen.power && (
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      placeholder={minPower.toString()}
+                      value={filters.powerMin}
+                      onChange={(e) => onFiltersChange({ ...filters, powerMin: e.target.value })}
+                      className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                    <span className="text-muted-foreground text-xs">{"—"}</span>
+                    <input
+                      type="number"
+                      placeholder={maxPower.toString()}
+                      value={filters.powerMax}
+                      onChange={(e) => onFiltersChange({ ...filters, powerMax: e.target.value })}
+                      className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                  </div>
+                )}
               </div>
             )}
 
             {/* Max pressure filter */}
             {products.some((p) => p.maxPressure) && (
               <div>
-                <h4 className="text-sm font-semibold text-foreground mb-2">
-                  {"Максимальное давление, кПа"}
-                </h4>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    placeholder={minPressure.toString()}
-                    value={filters.pressureMin}
-                    onChange={(e) => onFiltersChange({ ...filters, pressureMin: e.target.value })}
-                    className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                  />
-                  <span className="text-muted-foreground text-xs">{"—"}</span>
-                  <input
-                    type="number"
-                    placeholder={maxPressure.toString()}
-                    value={filters.pressureMax}
-                    onChange={(e) => onFiltersChange({ ...filters, pressureMax: e.target.value })}
-                    className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                  />
-                </div>
+                <button
+                  onClick={() => toggleFilterSection("pressure")}
+                  className="w-full flex items-center justify-between cursor-pointer mb-2"
+                >
+                  <h4 className="text-sm font-semibold text-foreground">
+                    {"Максимальное давление, кПа"}
+                  </h4>
+                  {filterSectionsOpen.pressure ? (
+                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {filterSectionsOpen.pressure && (
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      placeholder={minPressure.toString()}
+                      value={filters.pressureMin}
+                      onChange={(e) => onFiltersChange({ ...filters, pressureMin: e.target.value })}
+                      className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                    <span className="text-muted-foreground text-xs">{"—"}</span>
+                    <input
+                      type="number"
+                      placeholder={maxPressure.toString()}
+                      value={filters.pressureMax}
+                      onChange={(e) => onFiltersChange({ ...filters, pressureMax: e.target.value })}
+                      className="w-full border border-border rounded px-2 py-1.5 text-sm bg-card text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Performance filter */}
+            {performances.length > 0 && (
+              <div>
+                <button
+                  onClick={() => toggleFilterSection("performance")}
+                  className="w-full flex items-center justify-between cursor-pointer mb-2"
+                >
+                  <h4 className="text-sm font-semibold text-foreground">
+                    {"Производительность, л/мин"}
+                  </h4>
+                  {filterSectionsOpen.performance ? (
+                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {filterSectionsOpen.performance && (
+                  <div>
+                    {performances.map((perf) => (
+                      <label
+                        key={perf}
+                        className="flex items-center gap-2 text-sm text-foreground cursor-pointer mb-2"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filters.performance.includes(perf.toString())}
+                          onChange={() => handlePerformanceToggle(perf.toString())}
+                          className="rounded border-border accent-primary"
+                        />
+                        <span>{perf} л/мин</span>
+                        <span className="text-muted-foreground text-xs ml-auto">
+                          {`(${products.filter((p) => p.performance === perf).length})`}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Material filter */}
+            {materials.length > 0 && (
+              <div>
+                <button
+                  onClick={() => toggleFilterSection("material")}
+                  className="w-full flex items-center justify-between cursor-pointer mb-2"
+                >
+                  <h4 className="text-sm font-semibold text-foreground">
+                    {"Материал корпуса"}
+                  </h4>
+                  {filterSectionsOpen.material ? (
+                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {filterSectionsOpen.material && (
+                  <div>
+                    {materials.map((material) => (
+                      <label
+                        key={material}
+                        className="flex items-center gap-2 text-sm text-foreground cursor-pointer mb-2"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filters.materials.includes(material)}
+                          onChange={() => handleMaterialToggle(material)}
+                          className="rounded border-border accent-primary"
+                        />
+                        <span>{material}</span>
+                        <span className="text-muted-foreground text-xs ml-auto">
+                          {`(${products.filter((p) => p.material === material).length})`}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Length filter */}
+            {lengths.length > 0 && (
+              <div>
+                <button
+                  onClick={() => toggleFilterSection("length")}
+                  className="w-full flex items-center justify-between cursor-pointer mb-2"
+                >
+                  <h4 className="text-sm font-semibold text-foreground">
+                    {"Длина, м"}
+                  </h4>
+                  {filterSectionsOpen.length ? (
+                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </button>
+                {filterSectionsOpen.length && (
+                  <div>
+                    {lengths.map((length) => (
+                      <label
+                        key={length}
+                        className="flex items-center gap-2 text-sm text-foreground cursor-pointer mb-2"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filters.lengths.includes(length)}
+                          onChange={() => handleLengthToggle(length)}
+                          className="rounded border-border accent-primary"
+                        />
+                        <span>{length}</span>
+                        <span className="text-muted-foreground text-xs ml-auto">
+                          {`(${products.filter((p) => p.length?.toString() === length).length})`}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 

@@ -10,6 +10,7 @@ export interface Product {
   name: string
   price: number | null
   image: string
+  images?: string[]
   inStock: boolean
   badge?: "new" | "hit"
   category: string
@@ -19,4 +20,8 @@ export interface Product {
   performance?: number
   material?: string
   length?: number
+  description?: string
+  characteristics?: any
+  detailedDescription?: string
+  assembly?: string
 }

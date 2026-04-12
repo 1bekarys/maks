@@ -13,6 +13,9 @@ export interface FilterState {
   powerMax: string
   pressureMin: string
   pressureMax: string
+  performance: string[]
+  materials: string[]
+  lengths: string[]
 }
 
 export function CategoryView({
@@ -32,6 +35,9 @@ export function CategoryView({
     powerMax: "",
     pressureMin: "",
     pressureMax: "",
+    performance: [],
+    materials: [],
+    lengths: [],
   })
 
   const filteredProducts = useMemo(() => {
@@ -79,6 +85,27 @@ export function CategoryView({
         }
       }
 
+      // Performance filter
+      if (filters.performance.length > 0) {
+        if (!product.performance || !filters.performance.includes(product.performance.toString())) {
+          return false
+        }
+      }
+
+      // Material filter
+      if (filters.materials.length > 0) {
+        if (!product.material || !filters.materials.includes(product.material)) {
+          return false
+        }
+      }
+
+      // Length filter
+      if (filters.lengths.length > 0) {
+        if (!product.length || !filters.lengths.includes(product.length.toString())) {
+          return false
+        }
+      }
+
       return true
     })
   }, [products, filters])
@@ -92,6 +119,9 @@ export function CategoryView({
       powerMax: "",
       pressureMin: "",
       pressureMax: "",
+      performance: [],
+      materials: [],
+      lengths: [],
     })
   }
 

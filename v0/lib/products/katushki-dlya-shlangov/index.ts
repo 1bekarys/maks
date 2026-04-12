@@ -1,29 +1,8 @@
 import { Product } from "../../types"
+import { katushka20mProduct } from "./katushka-20m/product"
+import { katushka40mProduct } from "./katushka-40m/product"
 
 export const katushki_dlya_shlangov: Product[] = [
-  {
-    id: 16,
-    name: "Катушка для шланга высокого давления 20 м",
-    price: 15000,
-    image: "/images/cat-hose-reels.jpg",
-    inStock: true,
-    category: "katushki-dlya-shlangov",
-    country: "Китай",
-    maxPressure: 20000,
-    material: "Пластик",
-    length: 20,
-  },
-  {
-    id: 17,
-    name: "Катушка для шланга высокого давления 40 м",
-    price: 22000,
-    image: "/images/cat-hose-reels.jpg",
-    inStock: true,
-    badge: "new",
-    category: "katushki-dlya-shlangov",
-    country: "Китай",
-    maxPressure: 20000,
-    material: "Пластик",
-    length: 40,
-  },
+  katushka20mProduct,
+  katushka40mProduct,
 ]

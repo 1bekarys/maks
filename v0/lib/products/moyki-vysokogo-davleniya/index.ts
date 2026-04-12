@@ -1,41 +1,10 @@
 import { Product } from "../../types"
+import { moyka200bar15Product } from "./moyka-200-bar-15/product"
+import { moyka250bar15Product } from "./moyka-250-bar-15/product"
+import { moyka150bar12Product } from "./moyka-150-bar-12/product"
 
 export const moyki_vysokogo_davleniya: Product[] = [
-  {
-    id: 10,
-    name: "Мойка высокого давления 200 бар 15 л/мин",
-    price: 89000,
-    image: "/images/cat-pressure-washers.jpg",
-    inStock: true,
-    category: "moyki-vysokogo-davleniya",
-    country: "Китай",
-    power: 5500,
-    maxPressure: 20000,
-    performance: 15,
-  },
-  {
-    id: 11,
-    name: "Мойка высокого давления 250 бар 15 л/мин",
-    price: 95000,
-    image: "/images/cat-pressure-washers.jpg",
-    inStock: true,
-    badge: "hit",
-    category: "moyki-vysokogo-davleniya",
-    country: "Китай",
-    power: 7500,
-    maxPressure: 25000,
-    performance: 15,
-  },
-  {
-    id: 12,
-    name: "Мойка высокого давления 150 бар 12 л/мин",
-    price: 65000,
-    image: "/images/cat-pressure-washers.jpg",
-    inStock: true,
-    category: "moyki-vysokogo-davleniya",
-    country: "Китай",
-    power: 5500,
-    maxPressure: 15000,
-    performance: 12,
-  },
+  moyka200bar15Product,
+  moyka250bar15Product,
+  moyka150bar12Product,
 ]

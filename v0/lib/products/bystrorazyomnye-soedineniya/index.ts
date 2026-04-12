@@ -1,35 +1,10 @@
 import { Product } from "../../types"
+import { muftа38vnutrennyayaProduct } from "./muftа-3-8-vnutrennyaya/product"
+import { shteker38naruzhnayaProduct } from "./shteker-3-8-naruzhnaya/product"
+import { muftа14vnutrennyayaProduct } from "./muftа-1-4-vnutrennyaya/product"
 
 export const bystrorazyomnye_soedineniya: Product[] = [
-  {
-    id: 23,
-    name: "Быстросъёмная муфта 3/8 внутренняя",
-    price: 450,
-    image: "/images/cat-quick-connect.jpg",
-    inStock: true,
-    category: "bystrorazyomnye-soedineniya",
-    country: "Китай",
-    maxPressure: 25000,
-  },
-  {
-    id: 24,
-    name: "Быстросъёмный штекер 3/8 наружная",
-    price: 400,
-    image: "/images/cat-quick-connect.jpg",
-    inStock: true,
-    category: "bystrorazyomnye-soedineniya",
-    country: "Китай",
-    maxPressure: 25000,
-  },
-  {
-    id: 25,
-    name: "Быстросъёмная муфта 1/4 внутренняя",
-    price: 380,
-    image: "/images/cat-quick-connect.jpg",
-    inStock: true,
-    badge: "new",
-    category: "bystrorazyomnye-soedineniya",
-    country: "Китай",
-    maxPressure: 25000,
-  },
+  muftа38vnutrennyayaProduct,
+  shteker38naruzhnayaProduct,
+  muftа14vnutrennyayaProduct,
 ]
