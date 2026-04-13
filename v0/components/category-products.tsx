@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 import { ShoppingCart, Minus, Plus, LayoutGrid, List } from "lucide-react"
 import { Product, formatPrice } from "@/lib/catalog-data"
@@ -10,6 +11,7 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
   const [quantity, setQuantity] = useState(1)
   const { addItem, isItemInCart } = useCart()
   const itemInCart = isItemInCart(product.id)
+  const productUrl = `/product/${product.category}/${product.id}`
 
   const handleAddToCart = () => {
     if (product.price) {
@@ -41,7 +43,7 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
             {product.badge === "new" ? "Новинка" : "Хит"}
           </span>
         )}
-        <div className="w-[140px] h-[140px] flex-shrink-0 bg-secondary rounded flex items-center justify-center">
+        <Link href={productUrl} className="w-[140px] h-[140px] flex-shrink-0 bg-secondary rounded flex items-center justify-center hover:opacity-80 transition-opacity">
           <Image
             src={product.image}
             alt={product.name}
@@ -49,11 +51,13 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
             height={120}
             className="object-contain w-full h-full"
           />
-        </div>
+        </Link>
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-foreground text-sm leading-snug mb-2">
-            {product.name}
-          </h3>
+          <Link href={productUrl} className="block hover:text-blue-600 transition-colors">
+            <h3 className="font-semibold text-foreground text-sm leading-snug mb-2">
+              {product.name}
+            </h3>
+          </Link>
           <p className={`text-xs font-medium mb-2 ${product.inStock ? "text-green-600" : "text-accent"}`}>
             {product.inStock ? "В наличии" : "Под заказ"}
           </p>
@@ -115,7 +119,7 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
         </span>
       )}
 
-      <div className="relative aspect-square bg-secondary flex items-center justify-center p-5">
+      <Link href={productUrl} className="relative aspect-square bg-secondary flex items-center justify-center p-5 block hover:opacity-80 transition-opacity">
         <Image
           src={product.image}
           alt={product.name}
@@ -123,12 +127,14 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
           height={240}
           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
         />
-      </div>
+      </Link>
 
       <div className="p-4">
-        <h3 className="font-semibold text-foreground text-sm leading-snug mb-3 min-h-[40px]">
-          {product.name}
-        </h3>
+        <Link href={productUrl} className="block hover:text-blue-600 transition-colors">
+          <h3 className="font-semibold text-foreground text-sm leading-snug mb-3 min-h-[40px]">
+            {product.name}
+          </h3>
+        </Link>
 
         <p className={`text-xs font-medium mb-2 ${product.inStock ? "text-green-600" : "text-accent"}`}>
           {product.inStock ? "В наличии" : "Под заказ"}
@@ -174,9 +180,11 @@ function ProductCard({ product, viewMode }: { product: Product; viewMode: "grid"
             </button>
           </div>
         ) : (
-          <button className="w-full border border-primary text-primary text-sm font-semibold py-2 px-4 rounded hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">
-            Подробнее
-          </button>
+          <Link href={productUrl} className="block">
+            <button className="w-full border border-primary text-primary text-sm font-semibold py-2 px-4 rounded hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer">
+              Подробнее
+            </button>
+          </Link>
         )}
       </div>
     </div>
